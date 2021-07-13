@@ -1,0 +1,93 @@
+<ion-content [fullscreen]="true">
+  <!-- <ion-segment [(ngModel)]="selectTabs">
+    <ion-segment-button value="inKat">
+      <ion-label>Tambah Kategori</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="inDet">
+      <ion-label>Tambah Keuangan</ion-label>
+    </ion-segment-button>
+  </ion-segment> -->
+
+  <!-- <div *ngIf="selectTabs == 'inKat'">
+    <ion-card>
+      <ion-card-header>
+        <ion-item>
+          <h3 style="text-align: center;font-size: 18px;">Silahkan memasukkan kategori pendapatan / pengeluaran lengkap dengan keterangan!</h3>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Jenis Keuangan : </ion-label>
+          <ion-select [(ngModel)]="jenis" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu">
+            <ion-select-option value="Pendapatan"> <p>Pendapatan</p></ion-select-option>
+            <ion-select-option value="Pengeluaran"> <p>Pengeluaran</p></ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>        
+          <ion-label position="floating">Jenis tingkat keuangan : </ion-label>
+          <ion-select [(ngModel)]="tingkatan" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu">
+            <div *ngIf="jenis == 'Pengeluaran'">
+              <ion-select-option value="Kebutuhan"><p>Kebutuhan</p></ion-select-option>
+              <ion-select-option value="Cicilan"><p>Cicilan</p></ion-select-option>
+              <ion-select-option value="Tabungan"><p>Tabungan</p></ion-select-option>
+              <ion-select-option value="Proteksi"><p>Proteksi</p></ion-select-option>
+              <ion-select-option value="Investasi"><p>Investasi</p></ion-select-option>
+              <ion-select-option value="Cadangan"><p>Cadangan</p></ion-select-option>
+            </div>
+            <div *ngIf="jenis == 'Pendapatan'">
+              <ion-select-option value="tetap"><p>Tetap</p></ion-select-option>
+              <ion-select-option value="lain"><p>Lain - Lain</p></ion-select-option>
+            </div>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Keterangan : </ion-label>
+          <ion-input [(ngModel)]="keterangan" type="text"></ion-input>
+        </ion-item>
+        <ion-button expand='block' (click)="inputFinance()" >Masukkan!</ion-button>   
+      </ion-card-content>
+    </ion-card>
+  </div> -->
+  <!-- <div *ngIf="selectTabs == 'inDet'"> -->
+    <!-- <div *ngFor="let keuangan of keuangan> -->
+      <ion-card>
+        <ion-card-header>
+          <ion-item>
+            <h3 style="text-align: center; font-size: 18px;">Silahkan memasukkan kategori detil keuangan dari kategori yang sudah dimasukkan sebelumnya!</h3>
+          </ion-item>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="floating">Jenis Keuangan : </ion-label>
+            <ion-select [(ngModel)]="tipeKeuangan" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu" (ionChange)="getKeuangan(tipeKeuangan)" required>  
+              <ion-select-option value="1"><p>Pendapatan</p></ion-select-option>
+              <ion-select-option value="2"><p>Pengeluaran</p></ion-select-option>
+            </ion-select>
+          </ion-item> 
+          <ion-item>
+            <ion-label position="floating">Kategori keuangan: </ion-label>
+            <ion-select [(ngModel)]="idParent" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu" (ionChange)="getKeuangans(tipeKeuangan,idParent)" required>
+              <div *ngFor="let k of kategoris; let i=index">
+                <ion-select-option value="{{k.idPar}}"><p>{{k.ting1}}</p></ion-select-option>
+              </div>
+            </ion-select>          
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Detail keuangan: </ion-label>
+            <ion-select [(ngModel)]="idKategori" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu" required>
+              <div *ngFor="let k of kategori; let i=index">
+                <ion-select-option value="{{k.idDet}}"><p>{{k.detailTingkat}}</p></ion-select-option>
+              </div>
+            </ion-select>          
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Nominal uang : </ion-label>
+            <ion-input type="number" [(ngModel)] = "biaya" required></ion-input>
+            
+          </ion-item>
+          <ion-button expand='block' (click)="inputDetail()" >Tambahkan data</ion-button>   
+        </ion-card-content>
+      </ion-card>
+    <!-- </div> -->
+  <!-- </div> -->
+</ion-content>

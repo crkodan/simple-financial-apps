@@ -1,0 +1,66 @@
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <h1 style="text-align: center; color: black;">Riwayat Transaksi</h1>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>      
+        <h4 style="color: black; font-size: 20px;">Pilih waktu :</h4>
+        <ion-label position="floating" style="font-size: 18px; color: black;">Dari Tanggal : </ion-label>
+        <ion-datetime [(ngModel)]="start" style="font-size: 18px; color: #000;" displayFormat="DD - MM - YYYY" placeholder="Pilih Tanggal"></ion-datetime>
+        <ion-label position="floating" style="font-size: 18px; color: black;">Sampai Tanggal : </ion-label>
+        <ion-datetime [(ngModel)]="end" style="font-size: 18px; color: #000;" displayFormat="DD - MM - YYYY" placeholder="Pilih Tanggal"></ion-datetime>      
+      </ion-item>
+      <ion-button expand='block' (click)="tampilkan()" >Tampilkan!</ion-button>   
+    </ion-card-content>
+  </ion-card>
+  <div *ngFor="let k of keuangan; let i=index;">
+    <div>
+      <ion-card>
+        <ion-card-header>
+          <div *ngIf="k.kategori == 'Pendapatan'">    
+            <ion-row>
+              <ion-col>
+                <h4 style="color: #80BF90; font-size: 20px; text-align: left;">{{k.kategori}} : {{k.tingkat}}</h4>
+              </ion-col>
+              <ion-col>                
+                <h4 style="color: #80BF90; font-size: 20px; text-align: right;"> + {{k.besar | currency: 'Rp.'}}</h4>
+              </ion-col>
+            </ion-row>        
+          </div>
+          <div *ngIf="k.kategori == 'Pengeluaran'">    
+            <ion-row>
+              <ion-col>
+                <h4 style="color: #E91E63; font-size: 20px; text-align: left;">{{k.kategori}} : {{k.tingkat}}</h4>
+              </ion-col>
+              <ion-col>                
+                <h4 style="color: #E91E63; font-size: 20px; text-align: right;"> - {{k.besar | currency: 'Rp.'}}</h4>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-label style="color: black; font-size: 20px; text-align: start;">{{k.keterangan}} </ion-label>
+            <h4 style="color: black; font-size: 12px; text-align: right;">{{k.tanggal | date:'d - MMMM - yyyy'}}</h4>      
+            <ion-grid>
+              <ion-row>
+                <!-- <ion-col>
+                  <ion-button style="right: 12px;" (click)="editKeuangan(k.id)">Sunting biaya</ion-button>
+                   <h1 style="text-align: right; color: warning;">Update</h1> 
+                </ion-col> -->
+                <ion-col>
+                  <!-- <ion-button style="right: inherit;" (click)="deleteKeuangan(k.id)">Hapus Keuangan</ion-button> -->
+                   <h3 style="text-align: right; color:#ffcc00;" (click)="editKeuangan(k.id)">Edit Biaya</h3> 
+                </ion-col>
+                <ion-col>
+                  <h3 style="text-align: right; color: red;" (click)="deleteKeuangan(k.id)">Hapus Keuangan</h3> 
+                </ion-col>
+              </ion-row>
+            </ion-grid>      
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <ion-button size="small" slot="end" routerLink='/home'>Kembali</ion-button>  
+</ion-content>

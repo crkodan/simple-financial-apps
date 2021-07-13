@@ -1,0 +1,8 @@
+{
+  "name": "monegement",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

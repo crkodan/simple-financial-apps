@@ -1,0 +1,88 @@
+<script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script src="http://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+<ion-content>
+  <ion-card>
+    <!-- <ion-button>
+      <ion-back-button style="right: 0px; top: 0px;" defaultHref="home"></ion-back-button>
+    </ion-button>  -->
+    <ion-card-header>
+      <h2 style="color: black; text-align: center; padding: 9px;">{{message}}</h2>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list *ngFor="let ket of ktrngn; let i=index" class="accordian-list" lines="none" detail = "false" no-padding>
+        <ion-item tappable (click)="toogleTag(i)" [ngClass]="{'section-active': ket.open, 'section' : !ket.open}">
+          <ion-icon item-left name="add-outline" *ngIf="!ket.open"></ion-icon>
+          <ion-icon item-left name="remove-outline" *ngIf="ket.open"></ion-icon>
+          <ion-label style=" color: #80BF90; ">
+            {{ket.nama}}
+          </ion-label>
+        </ion-item>
+        <div *ngIf="ket.children && ket.open" no-lines>
+          <ion-list *ngFor="let det of ket.children; let j=index" no-padding class="child-list" lines="none">
+            <h4 style="margin-left: 50px; color: black;">{{det.keterangan}} : {{det.besaran | currency:'Rp. '}}</h4>
+          </ion-list>
+        </div>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header >
+      <h2 style="text-align: center; font-style: italic;">Grafik perbandingan keuangan anda</h2>
+    </ion-card-header>
+    <ion-card-content>  
+      
+      <canvas id="chartss"></canvas>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <h2 style="text-align: center; font-style: italic;">Informasi keuangan anda <ion-icon name="information-circle" (click)="openmodal()"></ion-icon>   </h2>   
+      
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="persenCicilan >= 30 && Kebutuhan + keuangan >= 2500000">
+        <h4 style="color:black; text-align:justify; ">Keuangan anda mulai tidak stabil. Cicilan anda sebesar {{cicilan | currency : 'Rp. '}} melebihi batas wajar, yakni {{(cicilan/pendapatans) | percent}}.<br><br>
+          Sebaiknya anda mengetatkan dana kebutuhan anda sebagai berikut,
+          serta anda dapat memilih menyimpan uang anda di sektor lain sesuai anjuran besaran!</h4>
+        <ul>
+          <li style="color:black; text-align:justify; ">Alokasi seluruh dana ke kebutuhan sebesar : <br> {{keuangan| currency:'Rp. '}} </li>
+          <li style="color:black; text-align:justify; ">Dana Proteksi Maksimal sebesar 3% : <br> {{simulProteksi - proteksi| currency:'Rp. '}} </li>
+          <li style="color:black; text-align:justify; ">Dana Cadangan Maksimal sebesar 3% : <br> {{simulCadangan - cadangan| currency:'Rp. '}} </li>
+        </ul>
+      </div>
+      <div *ngIf="persenCicilan != 0 && persenCicilan < 30">
+        <h4 style="color:black; text-align:justify; ">Keuangan anda masih dalam keadaan stabil. Dengan pendapatan anda bulan ini sebesar {{pendapatans | currency:'Rp. '}}, serta cicilan anda sebesar {{cicilan | currency:'Rp. '}} 
+          (Dibawah 30 %).<br><br>Anda dapat membagi pendapatan anda di beberapa sektor sebagai berikut</h4>
+        <ul>
+          <li style="color:black; text-align:justify; ">Dana Kebutuhan ideal sebesar 50% : <br> {{simulKebutuhan - Kebutuhan | currency:'Rp. '}} </li>
+          <li style="color:black; text-align:justify; ">Dana Tabungan ideal sebesar 5% : <br> {{simulTabungan - tabungan | currency:'Rp. '}} </li>
+          <li style="color:black; text-align:justify;  ">Dana Proteksi ideal sebesar 5% : <br> {{simulProteksi - proteksi | currency:'Rp. '}} </li>
+          <li style="color:black; text-align:justify;  ">Dana Investasi ideal sebesar 5% : <br> {{simulInvestasi - investasi| currency:'Rp. '}} </li>
+          <li style="color:black; text-align:justify; ">Dana Cadangan ideal sebesar 5% : <br> {{simulCadangan - cadangan| currency:'Rp. '}} </li>
+        </ul>
+      </div>
+      <div *ngIf="persenCicilan == 0">
+        <h4 style="color:black; text-align:justify; ">Keuangan anda sangat stabil, dengan pendapatan anda sebesar {{pendapatans | currency:'Rp. '}} di bulan ini, dan tidak adanya cicilan.<br><br> 
+          Anda bisa mengalokasikan dana anda sebagai berikut...</h4>
+        <ul>
+          <li style="color:black; text-align:justify; ">Dana Kebutuhan ideal sebesar 60% : <br> {{simulKebutuhan - Kebutuhan | currency:'Rp. '}} </li>
+          <li style="color:black; text-align:justify; ">Dana Tabungan ideal sebesar 10% :<br> {{simulTabungan - tabungan | currency:'Rp. '}} </li>
+          <li style="color:black; text-align:justify; ">Dana Proteksi ideal sebesar 10% :<br> {{simulProteksi - proteksi  | currency:'Rp. '}} </li>
+          <li style="color:black; text-align:justify; ">Dana Investasi ideal sebesar 10% :<br> {{simulInvestasi - investasi | currency:'Rp. '}} </li>
+          <li style="color:black; text-align:justify; ">Dana Cadangan ideal sebesar 10% :<br> {{simulCadangan - cadangan| currency:'Rp. '}} </li>
+        </ul>
+        <h4 style="color:black; text-align:justify; ">Apabila anda ingin melakukan cicilan, sebaiknya cicilan tidak melebihi 30%, yakni sebesar {{simulCicilan | currency:'Rp. '}}</h4>
+      </div>
+      <div *ngIf="Kebutuhan + keuangan < 2500000">
+        <h4 style="color:black; text-align:justify; ">Keuangan anda mulai tidak stabil. Cicilan anda sebesar {{cicilan | currency : 'Rp. '}} melebihi batas wajar untuk pendapatan anda bulan ini sebesar {{pendapatans | currency:'Rp. '}}.
+          <br><br> Dengan sisa uang saldo anda sebesar {{keuangan | currency:'Rp. '}} Sebaiknya anda mengalokasikan uang anda untuk hal berikut :</h4>
+        <ul>
+          <li style="color:black; text-align:justify; ">Alokasi seluruh dana ke kebutuhan sebesar: <br> {{keuangan - (simulKebutuhan - Kebutuhan)| currency:'Rp. '}} </li>
+          <li style="color:black; text-align:justify; ">Dana Proteksi Maksimal sebesar 3% : <br> {{(simulProteksi - proteksi)| currency:'Rp. '}} </li>
+          <li style="color:black; text-align:justify; ">Dana Cadangan Maksimal sebesar 3% : <br> {{(simulCadangan - cadangan) | currency:'Rp. '}} </li>
+        </ul>
+        <h4 style="color:black; text-align:justify; ">Dengan kurangnya saldo anda untuk bulan ini, maka tidak dianjurkan untuk melakukan pengeluaran disektor tabungan serta investasi!</h4>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

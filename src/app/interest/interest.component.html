@@ -1,0 +1,36 @@
+<ion-content>        
+  <ion-card>
+    <ion-item>
+      <ion-label style="text-align: center;font-size: 24px; font-style:oblique; font-family: sans-serif;">Kalkulator Kebutuhan</ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-label position="floating">Kebutuhan yang dituju : </ion-label>
+      <ion-select [(ngModel)]="pilihan" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu" (ionChange)="getBunga(pilihan)">
+        <div *ngFor="let k of kebutuhan; let i=index">
+          <ion-select-option value="{{k.id}}"><h4>{{k.nama}}</h4></ion-select-option>
+        </div>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Perkiraan bunga kenaikan tahunan (Desimal): </ion-label>
+      <ion-input type="number" [(ngModel)] = "bunga" value="{{bunga}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Perkiraan waktu realisasi kebutuhan : </ion-label>
+      <ion-input type="number" [(ngModel)] = "waktu" value="{{waktu}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Perkiraan harga kebutuhan : </ion-label>
+      <ion-input type="number" [(ngModel)] = "biaya" value="{{biaya}}"></ion-input>
+    </ion-item>
+    <ion-button expand='block' (click)="kalkulasi()" >Hitung!</ion-button> 
+  </ion-card>
+  <ion-card>
+    <ion-item>          
+      <ion-label>Total tabungan rutin per tahun: </ion-label>
+      <ion-label>{{menabung | currency:'Rp. '}}</ion-label>
+    </ion-item>
+  </ion-card>
+</ion-content>

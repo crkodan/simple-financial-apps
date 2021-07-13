@@ -1,0 +1,191 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * http://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+// @import './assets/highcharts.css';
+
+ion-segment-button{
+    --background-checked : #0d00ff;
+    --color-checked: var(--ion-color-success-tint);
+    --background:rgb(73, 75, 70);
+    color: #ffffff;
+    // border-radius: 36px;
+}
+ion-select{
+    ion-select-option{
+        color : var(--ion-color-primary-contrast);
+        .alert-radio-label {
+            color : var(--ion-color-primary-contrast);
+        }
+        .sc-ion-alert-md{
+            color : var(--ion-color-primary-contrast);
+        }
+    }
+
+}
+ion-card{
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%) !important;
+  display: block !important;
+  
+}
+ion-button{
+  border-radius: 36px;
+
+}
+// ion-card{
+//   height: 100%; display: flex; align-items: center; justify-content: center;
+// }
+ion-icon{
+  color: #000000;
+}
+// ion-label{
+//   font-size: 18px;
+// }
+// h3{
+//   font-size: 18px;
+// }
+.cell-class {
+  border-color: black; 
+  border-width: .01em; 
+  border-style:none ; margin-bottom : -1px;
+  // background-color: lightgrey
+}
+.menu-item-saldo-data-header{
+  margin-bottom: -20px;
+}
+.menu-item-saldo-data-content{
+  margin-bottom: -20px;
+}
+.regist-modal{  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  width: 75%;
+  height: 25%;
+  display: block !important;
+}
+.btn-right{
+  top:50%;
+  // width: 75%;
+  // height: 150%;
+  // position: relative;
+  // padding-right: 100px;
+}
+.btn-left{
+  top:50%;
+  position: static;
+  // width: 75%;
+  // height: 150%;
+  // position: relative;
+  // padding-left: 100px;
+  // padding-top: 30px;
+  // padding-bottom: 50px;
+  // padding-right: 150px;
+}
+.ion-card-finance{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 75%;
+  transform: translate(-50%, -50%) !important;
+  display: block !important;  
+  border-radius: 25px;
+}
+.modal{
+  background-color: seagreen;
+}
+.auth-page {
+    background-image: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-primary));
+  
+    .grid {
+      padding: 0;
+      .col {
+        padding: 0;
+      }
+    }
+  
+    .btn-group {
+      .button-ios,
+      .button-md {
+        border-radius: 0;
+        &:first-of-type {
+          border-radius: 2px 0 0 2px;
+        }
+        &:last-of-type {
+          border-radius: 0 2px 2px 0;
+        }
+      }
+    }
+  
+    .auth-content {
+      margin: 0 5%;
+  
+      .logo {
+        width: 60px;
+        height: 60px;
+        margin: 20px auto 8px;
+        border-radius: 10%;
+        background-size: 100%;
+      }
+  
+      .list-form {
+        padding: 0;
+        margin-bottom: 0;
+        justify-content: center;
+  
+        ion-item {
+          background: none;
+          padding: 0;
+  
+          &:first-child {
+            border-top: none;
+          }
+  
+          &:after {
+            display: none;
+          }
+  
+          ion-label {
+            font-size: 1em;
+            color: var(--ion-color-light);
+          }
+  
+          input {
+            color: var(--ion-color-light);
+          }
+        }
+      }
+    }
+    
+    .fw700 {
+        font-weight: 700 !important;
+        align-items: center;
+    }
+  
+  }

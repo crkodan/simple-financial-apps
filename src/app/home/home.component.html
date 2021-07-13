@@ -1,0 +1,148 @@
+<script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script src="http://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+<ion-content>  
+  <ion-card>
+    <ion-card-header>
+      <div *ngFor="let u of users;let i=index">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-auto class="cell-class" routerLink='/inputfinance'>
+              <ion-item class="menu-item-saldo-data-header" lines="none">
+                <h3 style="color: black;" (click)="simulasi()"><ion-icon name="wallet"></ion-icon> Saldo :</h3>
+              </ion-item>
+              <ion-item lines="none">                
+                <h4 style="color: black;" >{{keuangan | currency:'Rp. '}}</h4>
+              </ion-item>
+            </ion-col>
+            <ion-col col-auto class="cell-class" *ngIf="cicilan > (pendapatans * 0.3)">
+              <ion-item class="menu-item-saldo-data-header" lines="none">
+                <h3 style="color: black;" > <ion-icon name="card"></ion-icon> Cicilan :</h3>
+              </ion-item>
+              <ion-item class="menu-item-saldo-data-content" lines="none" >
+                <h4 style="color: black; color: #FF0000; font-weight: bold;">{{cicilan | currency:'Rp. '}}</h4>
+              </ion-item>
+              <ion-item class="menu-item-saldo-data-content"  lines="none">
+                <h4 style="color: black;" ><ion-icon name="alert-circle"></ion-icon> Waspada! Cicilan Maksimal:</h4>
+              </ion-item>
+              <ion-item class="menu-item-saldo-data-content"   lines="none">
+                <h4 style="color: black;" >{{(pendapatans * 0.3) | currency:'Rp. '}}</h4>
+              </ion-item>
+            </ion-col>   
+            <ion-col col-auto class="cell-class"  *ngIf="cicilan < (pendapatans * 0.3)">
+              <ion-item class="menu-item-saldo-data-header" lines="none">
+                <h3 style="color: black;" > <ion-icon name="card"></ion-icon> Cicilan :</h3>
+              </ion-item>
+              <ion-item class="menu-item-saldo-data-content" lines="none">
+                <h4 style="color: black; color: #52BF04; font-weight: bold;"> {{cicilan | currency:'Rp. '}}</h4>
+              </ion-item>
+              <!-- <ion-item  lines="none">
+                <h2 style="color: black; font-size: 20px;" (click)="simulasi()">{{(pendapatans * 0.3) | currency:'Rp. '}}</h2>
+              </ion-item> -->
+              <ion-item  lines="none">
+                <h4 style="color: black;;" (click)="simulasi()"><ion-icon name="heart-circle"></ion-icon> Cicilan ideal</h4>
+              </ion-item>
+            </ion-col>
+            <ion-col col-auto class="cell-class" *ngIf="totalSisaKebutuhan < (pendapatans * 0.5)">
+              <ion-item class="menu-item-saldo-data-header" lines="none">
+                <h3 style="color: black;"> <ion-icon name="fitness"></ion-icon> Kebutuhan :</h3>
+              </ion-item>
+              <ion-item class="menu-item-saldo-data-content" lines="none">
+                <h4 style="color: black;">{{keuangan | currency:'Rp. '}}</h4>
+              </ion-item>
+              <ion-item class="menu-item-saldo-data-content"  lines="none">
+                <h4 style="color: black;"><ion-icon name="information-circle"></ion-icon> Kebutuhan maksimal :</h4>
+              </ion-item>
+              <ion-item class="menu-item-saldo-data-content"  lines="none">
+                <h4 style="color: black;">{{keuangan | currency:'Rp. '}}</h4>
+              </ion-item>
+            </ion-col>
+            <ion-col col-auto class="cell-class" *ngIf="totalSisaKebutuhan > (pendapatans * 0.5)">
+              <ion-item class="menu-item-saldo-data-header" lines="none">
+                <h3 style="color: black;"> <ion-icon name="fitness"></ion-icon> Kebutuhan :</h3>
+              </ion-item>
+              <ion-item class="menu-item-saldo-data-content" lines="none">
+                <h4 style="color: black;">{{Kebutuhan | currency:'Rp.'}} / {{persenSimulasiKebutuhan | currency:'Rp.'}}</h4>
+              </ion-item>
+              <!-- <ion-item class="menu-item-saldo-data-content"  lines="none">
+                <h2 style="color: black; font-size: 15px;"><ion-icon name="information-circle"></ion-icon> Kebutuhan maksimal :</h2>
+              </ion-item>
+              <ion-item  lines="none">
+                <h2 style="color: black; font-size: 15px;">{{(pendapatans * 0.5) | currency:'Rp. '}}</h2>
+              </ion-item> -->
+            </ion-col>            
+          </ion-row>          
+        </ion-grid>   
+        <ion-grid>
+          <br>
+          <ion-button style="align-items: center;" expand='block' routerLink='/history' >Detail Riwayat</ion-button>
+        </ion-grid>
+        
+      </div>
+    </ion-card-header>
+    <ion-card-content>
+        
+      <!-- <ion-label style="color:black; text-align:justify; font-size: 24px;">Saldo :{{keuangan | currency:'Rp. '}}</ion-label>
+      <ion-progress-bar color="primary" value="{{(keuangan / pendapatans)}}"></ion-progress-bar>   
+        
+      <ion-label style="color:black; text-align:justify; font-size: 24px;">Kebutuhan :{{Kebutuhan | currency:'Rp. '}}</ion-label>
+      <ion-progress-bar color="primary" value="{{(Kebutuhan/(pendapatans * 0.5))}}"></ion-progress-bar>   
+        
+      <ion-label style="color:black; text-align:justify; font-size: 24px;">Cicilan :{{cicilan | currency:'Rp. '}}</ion-label>
+      <ion-progress-bar color="primary" value="{{(cicilan/(pendapatans * 0.3))}}"></ion-progress-bar>    -->
+
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>      
+        <div *ngIf="kesehatan == true">
+          <h1 style="text-align: center; color: #52BF04; font-weight: bold;">Status Kesehatan keuangan anda : <br> Keuangan anda dalam keadaan yang ideal</h1>
+        </div>
+        <div *ngIf="kesehatan == false">
+          <h1 style="text-align: center; color: #FF0000; font-weight: bold;">Status Kesehatan keuangan anda : <br> Waspada! Keuangan anda tidak ideal!</h1>
+        </div>
+      </ion-grid>
+      <ion-grid></ion-grid>
+      <ion-grid></ion-grid>
+      <canvas id="myChart" height="250"></canvas>
+      
+      <ion-grid></ion-grid>
+      <ion-grid></ion-grid>
+      <ion-grid></ion-grid>
+      <ion-grid></ion-grid>
+      <ion-grid></ion-grid>
+      <ion-grid>     
+        <ion-button style="align-items: center;" expand='block' (click)="report()" >Pelajari lebih lanjut</ion-button>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <!-- <ion-card-header>
+      <h1>Rekomendasi Sisa pengeluaran anda :</h1>
+    </ion-card-header>
+    <ion-card-content *ngIf="persenCicilan!=0 && persenCicilan < 30">
+        <ul>          
+          <li style="color:black; text-align:justify; font-size: 24px; ">Sisa dana Cicilan : {{((pendapatans * 0.3) - cicilan) | currency:'Rp. '}}</li>
+          <li style="color:black; text-align:justify; font-size: 24px; ">Sisa dana Kebutuhan : {{((pendapatans * 0.5) - Kebutuhan - keuangan) | currency:'Rp. '}} </li>
+        </ul>
+    </ion-card-content>
+    <ion-card-content *ngIf="persenCicilan == 0">
+        <ul>          
+          <li style="color:black; text-align:justify; font-size: 24px; ">Sisa dana Cicilan : {{((pendapatans * 0.3) - cicilan) | currency:'Rp. '}}</li>
+          <li style="color:black; text-align:justify; font-size: 24px; ">Sisa dana Kebutuhan : {{((pendapatans * 0.6) - Kebutuhan- keuangan) | currency:'Rp. '}} </li>
+        </ul>
+    </ion-card-content>
+    <ion-card-content *ngIf="persenCicilan>=30">
+        <ul>          
+          <li style="color:black; text-align:justify; font-size: 24px; color: red; ">Sisa dana Cicilan : {{((pendapatans * 0.3) - cicilan) | currency:'Rp. '}}</li>
+          <li style="color:black; text-align:justify; font-size: 24px; ">Sisa dana Kebutuhan : {{((pendapatans * 0.5) - Kebutuhan- keuangan) | currency:'Rp. '}} </li>
+        </ul>
+    </ion-card-content> -->
+    
+    <!-- <ion-card-content>
+      <ion-label style="color:black; text-align:justify; font-size: 24px;">Kebutuhan :{{Kebutuhan | currency:'Rp. '}}</ion-label>
+      <ion-progress-bar color="primary" value="{{(Kebutuhan/(pendapatans * 0.5))}}"></ion-progress-bar>      
+  </ion-card-content> -->
+  </ion-card>
+  
+</ion-content>

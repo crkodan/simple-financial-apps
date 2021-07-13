@@ -1,0 +1,14 @@
+:host {
+    ion-content {
+        --background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-primary));
+    }
+    ion-grid {
+        height: 100%;
+        justify-content: cen;
+    }
+}
+
+.paz {
+    position: relative;
+    z-index: 10;
+}

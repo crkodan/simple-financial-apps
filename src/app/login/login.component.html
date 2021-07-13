@@ -1,0 +1,51 @@
+<ion-content padding class="animated fadeIn login auth-page">
+  <ion-grid>
+    <div class="theme-bg"></div>
+    <div class="auth-content">
+
+      <div padding-horizontal text-center class="animated fadeInDown ion-text-center">
+        <div class="logo"></div>
+        <div class="logo"></div>
+        <div class="logo"></div>
+        <h4 no-margin>
+          <h1 color="light" class="fw700">
+            Monegement
+          </h1>
+        </h4>
+      </div>
+      <!-- Login form -->
+      <ion-card>
+        <ion-item no-padding class="animated fadeInUp">
+          <ion-label position="floating">
+            <ion-icon name="person" item-start></ion-icon>
+            username
+          </ion-label>
+          <ion-input color="secondary" type="text"[(ngModel)] = "username" required></ion-input>
+        </ion-item>
+          
+        <ion-item no-padding class="animated fadeInUp">
+          <ion-label position="floating">
+            <ion-icon name="lock-closed" item-start></ion-icon>
+              Password
+            </ion-label>
+          <ion-input color="secondary" type="password" [(ngModel)] = "password" required></ion-input>
+        </ion-item>
+
+        <div>
+          <ion-button icon-left size="medium" expand="full" shape="round" color="primary" (click)="login()" tappable>
+            <ion-icon name="log-in"></ion-icon>
+            Login
+          </ion-button>
+        </div>
+        <!-- Other links -->
+        <div text-center margin-top class="ion-text-center">
+          <span (click)="openModal()" class="paz" tappable>
+            <h2 color="light">
+              New here? <strong>Register Here!</strong>
+            </h2>
+          </span>
+        </div>
+      </ion-card>
+    </div>
+  </ion-grid>
+</ion-content>

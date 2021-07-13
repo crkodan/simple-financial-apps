@@ -1,0 +1,7 @@
+Panduan Penggunaan Aplikasi:
+1. Aplikasi ini merupakan aplikasi android, artinya, aplikasi hanya dapat dijalankan
+   menggunakan sistem operasi Android.
+2. Untuk dapat menggunakan aplikasi maka diperlukan :
+	- Download app-debug.apk, yang merupakan prototype dari aplikasi
+	- Berikan persetujuan untuk melakukan installasi setelah dilakukan download
+	- Apabila sudah, maka aplikasi akan langsung dapat digunakan.

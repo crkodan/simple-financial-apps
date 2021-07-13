@@ -1,0 +1,181 @@
+<ion-content [fullscreen]="true">
+  
+  <ion-segment [(ngModel)]="selectTabs" (ionChange)="clearcache()">
+    <ion-segment-button value="PNU">
+      <ion-label style="font-size: 12px;">Nilai uang <br> masa depan : </ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="PIP">
+      <ion-label style="font-size: 12px;">Nilai <br> diinvestasikan : </ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="PLI">
+      <ion-label style="font-size: 12px;">Periode <br> Investasi : </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-card>
+    <ion-item>
+      <ion-label style="text-align: center;font-size: 24px; font-style:oblique; font-family: sans-serif;">Kalkulator Investasi Reksadana</ion-label>
+      <ion-icon name="information-circle" (click)="openmodal()"></ion-icon>
+    </ion-item>
+  </ion-card>
+
+  <div *ngIf="selectTabs == 'PNU'">
+    <div>
+      <ion-card>  
+        <ion-item>
+          <ion-label position="floating">Kategori Investasi Reksadana : </ion-label>
+          <ion-select [(ngModel)]="kategori" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu" (ionChange)="getMaster(kategori)">
+            <div  *ngFor = "let kat of kategoris; let i=index">
+              <ion-select-option value="{{kat.idkategori}}"> <h4>{{kat.namaKategori}}</h4></ion-select-option>
+            </div>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Tipe Produk Reksadana : </ion-label>
+          <ion-select [(ngModel)]="tipe" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu" (ionChange)="getBunga(tipe)">
+            <div  *ngFor = "let mas of masters; let i=index">
+              <ion-select-option value="{{mas.idmaster}}"><p>{{mas.namaInvest}}</p></ion-select-option>
+            </div>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Total Bunga : {{bungas | number : '1.2-2'}} %</ion-label>
+        </ion-item>
+        <ion-item> 
+          <ion-label position="floating">Model Investasi : </ion-label>
+          <ion-select [(ngModel)]="periode" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu">
+            <ion-select-option value="1"> <h4>Investasi rutin tahunan</h4></ion-select-option>
+            <ion-select-option value="2"><h4>Investasi rutin bulanan</h4></ion-select-option>
+            <ion-select-option value="3"> <h4>Investasi hanya diawal</h4></ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Nominal pembelian reksadana : </ion-label>
+          <ion-input type="number" [(ngModel)] = "biaya" value="{{biaya}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Jangka waktu investasi (Dalam tahunan): </ion-label>
+          <ion-input type="number" [(ngModel)] = "waktu" value="{{waktu}}"></ion-input>
+        </ion-item>
+        <!-- <ion-item>
+          <ion-label position="floating">Keterangan : </ion-label>
+          <ion-input type="text" [(ngModel)] = "keterangan"></ion-input>
+        </ion-item> -->
+        <ion-button expand='block' (click)="HitungNilaiUang()" >HITUNG!</ion-button>   
+      </ion-card>
+      <ion-card>
+        <ion-item>          
+          <ion-label>Total Investasi di akhir : </ion-label>
+          <ion-label>{{investasiakhir | currency:'Rp. '}}</ion-label>
+        </ion-item>
+      </ion-card>
+    </div>
+  </div>
+  <div *ngIf="selectTabs == 'PIP'">
+    <ion-card>  
+      <ion-item>
+        <ion-label position="floating">Kategori Produk Reksadana : </ion-label>
+        <ion-select [(ngModel)]="kategori" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu" (ionChange)="getMaster(kategori)">
+          <div  *ngFor = "let kat of kategoris; let i=index">
+            <ion-select-option value="{{kat.idkategori}}"> <h4>{{kat.namaKategori}}</h4></ion-select-option>
+          </div>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Tipe Produk Reksadana : </ion-label>
+        <ion-select [(ngModel)]="tipe" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu" (ionChange)="getBunga(tipe)">
+          <div  *ngFor = "let mas of masters; let i=index">
+            <ion-select-option value="{{mas.idmaster}}"><p>{{mas.namaInvest}}</p></ion-select-option>
+          </div>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Total Bunga : {{bungas | number:'1.2-2'}} % </ion-label>
+        <ion-label></ion-label>
+      </ion-item>
+      <!-- <ion-item> 
+        <ion-label position="floating">Tipe investasi : </ion-label>
+        <ion-select [(ngModel)]="periode" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu">
+          <ion-select-option value="1"> <h4>Tabungan di awal</h4></ion-select-option>
+          <ion-select-option value="2"><h4>Tabungan rutin</h4></ion-select-option>
+        </ion-select>
+      </ion-item> -->
+      <ion-item> 
+        <ion-label position="floating">Periode Investasi Reksadana : </ion-label>
+        <ion-select [(ngModel)]="periode" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu">
+          <ion-select-option value="1"> <h4>Investasi rutin tahunan</h4></ion-select-option>
+          <ion-select-option value="2"><h4>Investasi rutin bulanan</h4></ion-select-option>
+          <ion-select-option value="3"> <h4>Investasi hanya diawal</h4></ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Jangka waktu investasi (Dalam tahunan) : </ion-label>
+        <ion-input type="number" [(ngModel)] = "waktu" value="{{waktu}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">nilai akhir investasi : </ion-label>
+        <ion-input type="number" [(ngModel)] = "investasiakhir" value="{{investasiakhir}}"></ion-input>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-label position="floating">Keterangan : </ion-label>
+        <ion-input type="text" [(ngModel)] = "keterangan"></ion-input>
+      </ion-item> -->
+      <ion-button expand='block' (click)="HitungInvestPeriode()" >HITUNG!</ion-button>   
+    </ion-card>
+    <ion-card>
+      <ion-item>          
+        <ion-label>Nominal pembelian rutin : </ion-label>
+        <ion-label>{{biaya | currency:'Rp. '}}</ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+  <div *ngIf="selectTabs == 'PLI'">
+    <ion-card>  
+      <ion-item>
+        <ion-label position="floating">Kategori Investasi Reksadana : </ion-label>
+        <ion-select [(ngModel)]="kategori" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu" (ionChange)="getMaster(kategori)">
+          <div  *ngFor = "let kat of kategoris; let i=index">
+            <ion-select-option value="{{kat.idkategori}}"> <h4>{{kat.namaKategori}}</h4></ion-select-option>
+          </div>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Tipe Reksadana : </ion-label>
+        <ion-select [(ngModel)]="tipe" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu" (ionChange)="getBunga(tipe)">
+          <div  *ngFor = "let mas of masters; let i=index">
+            <ion-select-option value="{{mas.idmaster}}"><p>{{mas.namaInvest}}</p></ion-select-option>
+          </div>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Total Bunga : {{bungas | number:'1.2-2'}} % </ion-label>
+      </ion-item>
+      <ion-item> 
+        <ion-label position="floating">Periode Investasi Reksadana : </ion-label>
+        <ion-select [(ngModel)]="periode" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu">
+          <ion-select-option value="1"> <h4>Investasi rutin tahunan</h4></ion-select-option>
+          <ion-select-option value="2"><h4>Investasi rutin bulanan</h4></ion-select-option>
+          <ion-select-option value="3"> <h4>Investasi hanya diawal</h4></ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nominal pembelian reksadana : </ion-label>
+        <ion-input type="number" [(ngModel)] = "biaya" value="{{biaya}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nilai investasi akhir : </ion-label>
+        <ion-input type="number" [(ngModel)] = "investasiakhir" value="{{investasiakhir}}"></ion-input>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-label position="floating">Keterangan : </ion-label>
+        <ion-input type="text" [(ngModel)] = "keterangan"></ion-input>
+      </ion-item> -->
+      <ion-button expand='block' (click)="HitungLamaInvestasi()" >HITUNG!</ion-button>   
+    </ion-card>
+    <ion-card>
+      <ion-item>          
+        <ion-label>Lama Investasi: </ion-label>
+        <ion-label>{{waktu | number:'1.2-2'}} Tahun</ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>

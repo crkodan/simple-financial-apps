@@ -1,0 +1,22 @@
+<ion-card>
+  <ion-card-content>
+    <ion-item>
+      <ion-label position='floating'>username</ion-label>
+      <ion-input type="text" [(ngModel)] = "username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position='floating'>nama</ion-label>
+      <ion-input type="text" [(ngModel)] = "nama"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position='floating'>Password</ion-label>
+      <ion-input type="password" [(ngModel)] = "password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position='floating'>Family Name</ion-label>
+      <ion-input type="text" [(ngModel)] = "famName"></ion-input>
+    </ion-item>
+    <ion-button expand='block' (click)="RegisterNewFam()" >Register</ion-button>
+    <h2 style="text-align: center;" routerLink='/login'><b>BACK TO LOGIN</b></h2> 
+  </ion-card-content>
+</ion-card>
